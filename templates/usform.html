@@ -1,0 +1,116 @@
+<html>
+	<head>
+		<title>User Form</title>
+	</head>
+	<body>
+		<h1 align="center">User Form</h1>
+		<form action="" onsubmit="return validateForm()" name="userForm">
+			<fieldset>
+				<legend>Form</legend>
+				<label>Name:</label> 
+				<br/>
+				<input type="text" name="name" id="name"/>
+				<br/>
+				<label>Age:</label> 
+				<br/>
+				<input type="number" name="age" id="age"/>
+				<br/>
+				<label>Address: </label> 
+				<br/>
+				<textarea name="address" rows="3" cols="20" id="address"></textarea>
+				<br/>
+				<label>Favorote Subject:</label> 
+				<br/>
+				<select id="subject">
+					<option value="">Select Subject</option>
+					<option value="Java">Java</option>
+					<option>Networks</option>
+					<option>.Net</option>
+				</select>
+				<br/>
+				<label>Movie:</label> 
+				<br/>
+				<input type="radio" name="movie" value="movie1" id="movie1"/> Movie 1 
+				<input type="radio" name="movie" value="movie2" id="movie2"/> Movie 2 
+				<input type="radio" name="movie" value="movie3" id="movie3"/> Movie 3
+				<br/>
+				<label>Singer:</label> 
+				<br/>
+				<input type="checkbox" name="singer" value="singer1" id="singer1"/> Singer 1 
+				<input type="checkbox" name="singer" value="singer2" id="singer2"/> Singer 2
+				<input type="checkbox" name="singer" value="singer3" id="singer3"/> Singer 3
+				<br/><br/>
+				<button type="submit">Submit</button>
+				<input type="reset"></button>
+			</fieldset>
+		</form>
+		
+		<script>
+			function validateForm() {
+				var name = document.getElementById('name').value;
+				var age = document.getElementById('age').value;
+				var address = document.getElementById('address').value;
+				var subject = document.getElementById('subject').value;
+				var movieElements = document.getElementsByName('movie');
+				var singerElements = document.getElementsByName('singer');
+				var movie = '';
+				var singer = [];
+				
+				for(var i = 0; i < movieElements.length;  ++i) {
+					if(movieElements[i].checked) movie = movieElements[i].value;
+				}
+				
+				for(var i = 0; i < singerElements.length;  ++i) {
+					if(singerElements[i].checked) singer.push(singerElements[i].value);
+				}
+				
+				if(name.length == 0) {
+					alert('Please enter name');
+					document.getElementById('name').focus();
+					return false;
+				}
+				else if(age.length == 0 || isNaN(age)) {
+					alert('Please enter valid age');
+					document.getElementById('age').value = '';
+					document.getElementById('age').focus();
+					return false;
+				}
+				else if(age == 0) {
+					alert('Age shouldn\'t be zero');
+					document.getElementById('age').value = '';
+					document.getElementById('age').focus();
+					return false;
+				}
+				else if(age > 150) {
+					alert('Age shouldn\'t be greater than 150');
+					document.getElementById('age').value = '';
+					document.getElementById('age').focus();
+					return false;
+				}
+				else if(address.length == 0) {
+					alert('Please enter address');
+					document.getElementById('address').focus();
+					return false;
+				}
+				else if(subject == "") {
+					alert('Please select subject');
+					document.getElementById('subject').focus();
+					return false;
+				}
+				else if(movie.length == 0) {
+					alert('Please select movie');
+					return false;
+				}
+				else if(singer.length == 0) {
+					alert('Please select atleast one singer');
+					return false;
+				}
+				else {
+					alert('All fields are validated and Form is ready to submit');
+					alert(' Name: '+name+'\n Age: '+age+'\n Address: '+address+'\n Favorite Subject: '+subject+'\n Movie: '+movie+'\n Singer(s): '+singer);
+					return true;
+				}
+			}
+		</script>
+	</body>
+</html>
